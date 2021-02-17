@@ -1,4 +1,4 @@
-## [0.1.1] (???)
+## [0.1.1] (2021-2-17)
 * 重写了ReadMe和ChangeLog<br/>
 rewrite ReadMe & ChangeLog
 * 减小图标的大小为128 $\times$ 128像素<br/>
