@@ -1,0 +1,78 @@
+这是att.tmLanguage.json的注释
+因为json文件不支持注释，所以只能单独写了
+
+匹配函数名时，比如main:，只匹配main并上色，但是匹配时要依靠:，所以只能把:一起上色了
+
+对于MOV等操作使用了storage.type的颜色（变量类型关键字的颜色），虽然不是很合适，但是MASM好像就是这样用的
+
+出现了一些不明bug，可能先以写完为目标了，懒得搞懂原因了
+比如registers和immediate，pushq%rbp不变色，movq%rsp, %rbp第一个变色，movq	%rsp, %rbp不变色，去掉正则表达式里的\\b就好像好了？
+
+寄存器匹配的时候，如%r8d，只匹配%r8，这个问题我不会解决，临时把所有寄存器并到一起吧
+目前不加区分应该不要紧，如果寄存器要上不同的颜色，或者未来要写判断语法的插件（不太可能），再修改吧
+        {"include": "#registers_64"},
+		{"include": "#registers_32"},
+		{"include": "#registers_16"},
+		{"include": "#registers_8"},
+        "registers_64": {
+			"patterns": [{
+				"name": "variable.att",
+				"match": "%r([a-d]x|si|di|bp|sp|[8-9]|1[0-5])"
+			}]
+		},
+        "registers_32": {
+			"patterns": [{
+				"name": "variable.att",
+				"match": "%(e[a-d]x|esi|edi|ebp|esp|r[8-9]d|r1[0-5]d)"
+			}]
+		},
+        "registers_16": {
+			"patterns": [{
+				"name": "variable.att",
+				"match": "%([a-d]x|si|di|bp|sp|r[8-9]w|r1[0-5]w)"
+			}]
+		},
+        "registers_8": {
+			"patterns": [{
+				"name": "variable.att",
+				"match": "%([a-d]l|sil|dil|bpl|spl|r[8-9]b|r1[0-5]b)"
+			}]
+		}
+
+整数运算部分原来的颜色为keyword.operator.arithmetic，不过这个颜色是白的？？所以也用了MOV的颜色
+以后还是改改颜色吧，不然全是蓝的
+
+逻辑运算原色：keyword.operator.logical
+
+位运算原色：keyword.operator.bitwise
+
+和寄存器同样的问题出现了，$0xa，只匹配$0，暂时把十位和十六位数并起来了
+        {"include": "#immediate_10"},
+		{"include": "#immediate_16"},
+        "immediate_10": {
+			"patterns": [{
+				"name": "constant.numeric.integer.decimal.att",
+				"match": "\\$?-?[0-9]+"
+			}]
+		},
+		"immediate_16": {
+			"patterns": [{
+				"name": "constant.numeric.integer.hexadecimal.att",
+				"match": "\\$?0x([0-9a-fA-F]{1,16}),?"
+			}]
+		}
+
+SET原色：keyword.operator
+
+JMP原色：entity.name.label
+
+COMV原色：keyword.operator
+
+标点符号就是不变色，不过本来也就没有颜色，先不管了
+		{"include": "punctuations"}
+        "punctuations": {
+			"patterns": [{
+				"name": "punctuation.separator.att",
+				"match": ","
+			}]
+		}

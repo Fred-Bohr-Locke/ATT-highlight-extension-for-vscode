@@ -1,0 +1,111 @@
+{
+	"name": "AT&T Assembly Language",
+	"patterns": [
+		{"include": "#functions"},
+		{"include": "#MOV"},
+		{"include": "#registers"},
+		{"include": "#int_calculation"},
+		{"include": "#int_calculation_logical"},
+		{"include": "#int_calculation_bit"},
+		{"include": "#immediate"},
+		{"include": "#keywords"},
+		{"include": "#set_condition"},
+		{"include": "#SET"},
+		{"include": "#JMP"},
+		{"include": "#CMOV"},
+		{"include": "#strings"},
+		{"include": "#comments"}
+	],
+	"repository": {
+		"functions": {
+			"patterns": [{
+				"name": "entity.name.function.att",
+				"match": "[a-zA-Z]*:[\r\n]"
+			}]
+		},
+		"MOV": {
+			"patterns": [{
+				"name": "storage.type.att",
+				"match": "\\b(mov[blqw]|movabsq|mov[sz]b[lqw]|mov[sz]w[lq]|clt[oq]|cqto)\\b"
+			}]
+		},
+		"registers": {
+			"patterns": [{
+				"name": "variable.att",
+				"match": "%(([er]?([a-d]x|si|di|bp|sp))|(r([8-9][bdw]?|1[0-5][bdw]?))|(([a-d]|si|di|bp|sp)l))"
+			}]
+		},
+		"int_calculation": {
+			"patterns": [{
+				"name": "storage.type.att",
+				"match": "\\b(leaq|inc[blqw]|dec[blqw]|neg[blqw]|add[blqw]|sub[blqw]|imul[blqw]|idivq|divq)\\b"
+			}]
+		},
+		"int_calculation_logical": {
+			"patterns": [{
+				"name": "storage.type.att",
+				"match": "\\b(not[blqw]|xor[blqw]|or[blqw]|and[blqw])\\b"
+			}]
+		},
+		"int_calculation_bit": {
+			"patterns": [{
+				"name": "storage.type.att",
+				"match": "\\b(s[ah][lr][blqw])\\b"
+			}]
+		},
+		"immediate": {
+			"patterns":[{
+				"name": "constant.numeric.integer.att",
+				"match": "\\$?(-?[1-9][0-9]*|0(x[0-9a-fA-F]{1,16})?)"
+			}]
+		},
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.att",
+				"match": "\\b(ret|rep)\\b"
+			}]
+		},
+		"set_condition": {
+			"patterns": [{
+				"name": "keyword.control.conditional.att",
+				"match": "\\b(cmp[blqw]|test[blqw])\\b"
+			}]
+		},
+		"SET": {
+			"patterns": [{
+				"name": "storage.type.att",
+				"match": "\\bsetn?([ez]|s|[gl]e?|[ab]e?)\\b"
+			}]
+		},
+		"JMP": {
+			"patterns": [{
+				"name": "storage.type.att",
+				"match": "\\bj(mp|n?[ez]|n?s|n?[gl]e?|n?[ab]e?)\\b"
+			}]
+		},
+		"CMOV": {
+			"patterns": [{
+				"name": "storage.type.att",
+				"match": "\\bcmovn?([ez]|s|[gl]e?|[ab]e?)\\b"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.att",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.att",
+					"match": "\\\\."
+				}
+			]
+		},
+		"comments": {
+			"patterns": [{
+				"name": "comment.line.att",
+				"match": ";.*"
+			}]
+		}
+	},
+	"scopeName": "source.s"
+}

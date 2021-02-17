@@ -1,0 +1,31 @@
+{
+    "publisher": "FredBohrLocke",
+	"icon": "logo.png",
+    "name": "att",
+    "displayName": "AT&T",
+    "description": "a highlight extention for AT&T assembly language",
+    "version": "0.0.0",
+    "engines": {
+        "vscode": "^1.50.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "att",
+            "aliases": ["AT&T Assembly Language", "att"],
+            "extensions": [".s"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "att",
+            "scopeName": "source.s",
+            "path": "./syntaxes/att.tmLanguage.json"
+        }],
+        "commands": [{
+			"command": "att.enable",
+			"title": "AT&T"
+		}]
+    }
+}
