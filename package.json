@@ -3,13 +3,16 @@
 	"icon": "logo_transparent.png",
     "name": "att",
     "displayName": "AT&T",
-    "description": "a highlight extention for AT&T assembly language",
-    "version": "0.0.2",
+    "description": "a highlight extension for AT&T assembly language",
+    "version": "0.1.0",
     "engines": {
         "vscode": "^1.50.0"
     },
     "categories": [
-        "Programming Languages"
+        "Programming Languages", "Snippets"
+    ],
+    "keywords": [
+        "AT&T", "ATT", "att", "linux", "assembly language", "highlight"
     ],
     "contributes": {
         "languages": [{
@@ -23,9 +26,9 @@
             "scopeName": "source.s",
             "path": "./syntaxes/att.tmLanguage.json"
         }],
-        "commands": [{
-			"command": "att.enable",
-			"title": "AT&T"
+        "snippets": [{
+            "language": "att",
+            "path": "./snippets/snippets.code-snippets"
         }]
     }
 }

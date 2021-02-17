@@ -1,5 +1,5 @@
-# AT&T Highlight Extention for Visual Code Studio
+# AT&T Highlight Extension for Visual Code Studio
 
 ## Summary
 
-This is a highlight extention for AT&T assembly language.
+This is a highlight extension for AT&T assembly language.

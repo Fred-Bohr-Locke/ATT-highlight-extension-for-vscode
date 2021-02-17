@@ -1,8 +1,6 @@
 {
 	"name": "AT&T Assembly Language",
 	"patterns": [
-		{"include": "#address"},
-		{"include": "#hex_instruments"},
 		{"include": "#functions"},
 		{"include": "#function_disas"},
 		{"include": "#endbr64"},
@@ -11,7 +9,6 @@
 		{"include": "#int_calculation"},
 		{"include": "#int_calculation_logical"},
 		{"include": "#int_calculation_bit"},
-		{"include": "#immediate"},
 		{"include": "#keywords"},
 		{"include": "#set_condition"},
 		{"include": "#SET"},
@@ -20,23 +17,12 @@
 		{"include": "#PUSH"},
 		{"include": "#POP"},
 		{"include": "#CALL"},
+		{"include": "#NOP"},
 		{"include": "#strings"},
-		{"include": "#comments"}
+		{"include": "#comments"},
+		{"include": "#numbers"}
 	],
 	"repository": {
-		"address": {
-			"patterns": [{
-				"name": "constant.numeric.integer.att",
-				"match": "\t^[0-9a-f]{4}$:"
-			}]
-		},
-		"hex_instructions": {
-			"begin":":\t",
-			"patterns": [{
-				"name": "constant.numeric.integer.att",
-				"match": "[0-9a-f]{2}[ ]{1,7}[ ]*\t"
-			}]
-		},
 		"functions": {
 			"end": ":$",
 			"patterns": [{
@@ -68,7 +54,7 @@
 		"MOV": {
 			"patterns": [{
 				"name": "keyword.core.att",
-				"match": "\\b(mov[blqw]?|movabsq|mov[sz]b[lqw]|mov[sz]w[lq]|clt[oq]|cqto)\\b"
+				"match": "\\b(mov([blqw]?|absq?|[sz]b[lqw]|[sz]w[lq]|slq)|clt[oq]|cqto)\\b"
 			}]
 		},
 		"registers": {
@@ -80,7 +66,7 @@
 		"int_calculation": {
 			"patterns": [{
 				"name": "keyword.core.att",
-				"match": "\\b((lea|inc|dec|neg|add|sub|imul)[blqw]?|idivq|divq)\\b"
+				"match": "\\b((lea|inc|dec|neg|add|sub|i?(mul|div))[blqw]?)\\b"
 			}]
 		},
 		"int_calculation_logical": {
@@ -95,16 +81,10 @@
 				"match": "\\bs[ah][lr][blqw]?\\b"
 			}]
 		},
-		"immediate": {
-			"patterns": [{
-				"name": "constant.numeric.integer.att",
-				"match": "[$]?(-?[1-9][0-9]*|0(x[0-9a-fA-F][1-9a-fA-F]{1,16})?)"
-			}]
-		},
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.att",
-				"match": "\\b(ret|rep)[blqw]?\\b"
+				"match": "\\bre(pz?|tq?)\\b"
 			}]
 		},
 		"set_condition": {
@@ -146,7 +126,13 @@
 		"CALL": {
 			"patterns": [{
 				"name": "keyword.core.att",
-				"match": "\\bcall[blwq]?\\b"
+				"match": "\\bcallq?\\b"
+			}]
+		},
+		"NOP": {
+			"patterns": [{
+				"name": "keyword.core.att",
+				"match": "\\bnop[blwq]?\\b"
 			}]
 		},
 		"strings": {
@@ -164,6 +150,12 @@
 			"patterns": [{
 				"name": "comment.line.att",
 				"match": ";.*$"
+			}]
+		},
+		"numbers": {
+			"patterns": [{
+				"name": "constant.numeric.integer.att",
+				"match": "[$]?(-?(0x)?[0-9a-fA-F]{1,16})"
 			}]
 		}
 	},
