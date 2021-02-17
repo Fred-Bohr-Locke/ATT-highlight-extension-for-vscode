@@ -76,3 +76,27 @@ COMV原色：keyword.operator
 				"match": ","
 			}]
 		}
+
+
+0.0.1注释
+颜色主题太丑了，先不用了
+category目录下要加,"Themes"
+contributes目录下：
+        "themes": [{
+            "label": "att",
+            "uiTheme": "vs-dark",
+            "path": "./themes/color-color-theme.json"
+        }],
+
+找到不显示函数名：高亮的方法了，但是实际实现遇到了问题，先跳过了
+
+address的begin是四个空格，不会匹配
+
+二进制指令还没写，这个等下次拿到原码再改吧，现在这个bomb.s被改得太多了
+
+function_names匹配中有挺多bug的
+首先，不知道怎么只匹配.，于是只写了.，即匹配所有字符
+然后函数名为.xx.xx时只能匹配到后一半的
+最后匹配到了我原以为匹配不到的字符@
+
+不知道要怎么匹配十六进制命令

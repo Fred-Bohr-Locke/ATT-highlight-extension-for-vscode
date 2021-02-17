@@ -1,7 +1,11 @@
 {
 	"name": "AT&T Assembly Language",
 	"patterns": [
+		{"include": "#address"},
+		{"include": "#hex_instruments"},
 		{"include": "#functions"},
+		{"include": "#function_names"},
+		{"include": "#endbr64"},
 		{"include": "#MOV"},
 		{"include": "#registers"},
 		{"include": "#int_calculation"},
@@ -13,48 +17,78 @@
 		{"include": "#SET"},
 		{"include": "#JMP"},
 		{"include": "#CMOV"},
+		{"include": "#PUSH"},
+		{"include": "#POP"},
+		{"include": "#CALL"},
 		{"include": "#strings"},
 		{"include": "#comments"}
 	],
 	"repository": {
+		"address": {
+			"patterns": [{
+				"name": "constant.numeric.integer.att",
+				"match": "[0-9a-f]{4}"
+			}]
+		},
+		"hex_instructions": {
+			"begin":":\t",
+			"patterns": [{
+				"name": "constant.numeric.integer.att",
+				"match": "[0-9a-f]{2}[ ]{1,7}[ ]*\t"
+			}]
+		},
 		"functions": {
 			"patterns": [{
 				"name": "entity.name.function.att",
-				"match": "[a-zA-Z]*:[\r\n]"
+				"match": ".?[a-zA-Z]*:[\r\n]"
+			}]
+		},
+		"function_names": {
+			"begin": "<",
+			"end": ">:?[\r\n]",
+			"patterns": [{
+				"name": "entity.name.function.att",
+				"match": ".[_a-zA-Z][_0-9a-zA-Z]*"
+			}]
+		},
+		"endbr64": {
+			"patterns": [{
+				"name": "storage.type.att",
+				"match": "endbr64"
 			}]
 		},
 		"MOV": {
 			"patterns": [{
 				"name": "storage.type.att",
-				"match": "\\b(mov[blqw]|movabsq|mov[sz]b[lqw]|mov[sz]w[lq]|clt[oq]|cqto)\\b"
+				"match": "\\b(mov[blqw]?|movabsq|mov[sz]b[lqw]|mov[sz]w[lq]|clt[oq]|cqto)\\b"
 			}]
 		},
 		"registers": {
 			"patterns": [{
 				"name": "variable.att",
-				"match": "%(([er]?([a-d]x|si|di|bp|sp))|(r([8-9][bdw]?|1[0-5][bdw]?))|(([a-d]|si|di|bp|sp)l))"
+				"match": "%(([er]?([a-d]x|si|di|bp|sp))|(r(ip|[8-9][bdw]?|1[0-5][bdw]?))|(([a-d]|si|di|bp|sp)l)|fs)"
 			}]
 		},
 		"int_calculation": {
 			"patterns": [{
 				"name": "storage.type.att",
-				"match": "\\b(leaq|inc[blqw]|dec[blqw]|neg[blqw]|add[blqw]|sub[blqw]|imul[blqw]|idivq|divq)\\b"
+				"match": "\\b(leaq?|(inc|dec|neg|add|sub|imul)[blqw]?|idivq|divq)\\b"
 			}]
 		},
 		"int_calculation_logical": {
 			"patterns": [{
 				"name": "storage.type.att",
-				"match": "\\b(not[blqw]|xor[blqw]|or[blqw]|and[blqw])\\b"
+				"match": "\\b(not|xor|or|and)[blqw]?\\b"
 			}]
 		},
 		"int_calculation_bit": {
 			"patterns": [{
 				"name": "storage.type.att",
-				"match": "\\b(s[ah][lr][blqw])\\b"
+				"match": "\\bs[ah][lr][blqw]?\\b"
 			}]
 		},
 		"immediate": {
-			"patterns":[{
+			"patterns": [{
 				"name": "constant.numeric.integer.att",
 				"match": "\\$?(-?[1-9][0-9]*|0(x[0-9a-fA-F]{1,16})?)"
 			}]
@@ -62,13 +96,13 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.att",
-				"match": "\\b(ret|rep)\\b"
+				"match": "\\b(ret|rep)[blqw]?\\b"
 			}]
 		},
 		"set_condition": {
 			"patterns": [{
 				"name": "keyword.control.conditional.att",
-				"match": "\\b(cmp[blqw]|test[blqw])\\b"
+				"match": "\\b(cmp|test)[blqw]?\\b"
 			}]
 		},
 		"SET": {
@@ -80,13 +114,31 @@
 		"JMP": {
 			"patterns": [{
 				"name": "storage.type.att",
-				"match": "\\bj(mp|n?[ez]|n?s|n?[gl]e?|n?[ab]e?)\\b"
+				"match": "\\bj(mp|n?[ez]|n?s|n?[gl]e?|n?[ab]e?)[blqw]?\\b"
 			}]
 		},
 		"CMOV": {
 			"patterns": [{
 				"name": "storage.type.att",
 				"match": "\\bcmovn?([ez]|s|[gl]e?|[ab]e?)\\b"
+			}]
+		},
+		"PUSH": {
+			"patterns": [{
+				"name": "storage.type.att",
+				"match": "\\bpushq?\\b"
+			}]
+		},
+		"POP": {
+			"patterns": [{
+				"name": "storage.type.att",
+				"match": "\\bpopq?\\b"
+			}]
+		},
+		"CALL": {
+			"patterns": [{
+				"name": "storage.type.att",
+				"match": "\\bcall[blwq]?\\b"
 			}]
 		},
 		"strings": {
