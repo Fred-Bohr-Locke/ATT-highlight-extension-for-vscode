@@ -1,10 +1,10 @@
 {
     "publisher": "FredBohrLocke",
-	"icon": "logo.png",
+	"icon": "logo_transparent.png",
     "name": "att",
     "displayName": "AT&T",
     "description": "a highlight extention for AT&T assembly language",
-    "version": "0.0.0",
+    "version": "0.0.2",
     "engines": {
         "vscode": "^1.50.0"
     },
@@ -26,6 +26,6 @@
         "commands": [{
 			"command": "att.enable",
 			"title": "AT&T"
-		}]
+        }]
     }
 }

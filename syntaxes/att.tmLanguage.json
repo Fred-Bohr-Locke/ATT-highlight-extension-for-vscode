@@ -4,7 +4,7 @@
 		{"include": "#address"},
 		{"include": "#hex_instruments"},
 		{"include": "#functions"},
-		{"include": "#function_names"},
+		{"include": "#function_disas"},
 		{"include": "#endbr64"},
 		{"include": "#MOV"},
 		{"include": "#registers"},
@@ -27,7 +27,7 @@
 		"address": {
 			"patterns": [{
 				"name": "constant.numeric.integer.att",
-				"match": "[0-9a-f]{4}"
+				"match": "\t^[0-9a-f]{4}$:"
 			}]
 		},
 		"hex_instructions": {
@@ -38,28 +38,36 @@
 			}]
 		},
 		"functions": {
+			"end": ":$",
 			"patterns": [{
 				"name": "entity.name.function.att",
-				"match": ".?[a-zA-Z]*:[\r\n]"
+				"match": "^[.]?[_a-zA-Z][_0-9a-zA-Z@. ]*"
 			}]
 		},
-		"function_names": {
+		"function_disas": {
 			"begin": "<",
-			"end": ">:?[\r\n]",
-			"patterns": [{
-				"name": "entity.name.function.att",
-				"match": ".[_a-zA-Z][_0-9a-zA-Z]*"
-			}]
+			"end": ">",
+			"patterns": [
+				{
+					"name": "entity.name.function.att",
+					"match": "[.]?[_a-zA-Z][_0-9a-zA-Z@.]*"
+				},
+				{
+					"begin": "[+]",
+					"name": "constant.numeric.integer.att",
+					"match": "0x[0-9a-f]+"
+				}
+			]
 		},
 		"endbr64": {
 			"patterns": [{
-				"name": "storage.type.att",
+				"name": "keyword.core.att",
 				"match": "endbr64"
 			}]
 		},
 		"MOV": {
 			"patterns": [{
-				"name": "storage.type.att",
+				"name": "keyword.core.att",
 				"match": "\\b(mov[blqw]?|movabsq|mov[sz]b[lqw]|mov[sz]w[lq]|clt[oq]|cqto)\\b"
 			}]
 		},
@@ -71,26 +79,26 @@
 		},
 		"int_calculation": {
 			"patterns": [{
-				"name": "storage.type.att",
-				"match": "\\b(leaq?|(inc|dec|neg|add|sub|imul)[blqw]?|idivq|divq)\\b"
+				"name": "keyword.core.att",
+				"match": "\\b((lea|inc|dec|neg|add|sub|imul)[blqw]?|idivq|divq)\\b"
 			}]
 		},
 		"int_calculation_logical": {
 			"patterns": [{
-				"name": "storage.type.att",
+				"name": "keyword.core.att",
 				"match": "\\b(not|xor|or|and)[blqw]?\\b"
 			}]
 		},
 		"int_calculation_bit": {
 			"patterns": [{
-				"name": "storage.type.att",
+				"name": "keyword.core.att",
 				"match": "\\bs[ah][lr][blqw]?\\b"
 			}]
 		},
 		"immediate": {
 			"patterns": [{
 				"name": "constant.numeric.integer.att",
-				"match": "\\$?(-?[1-9][0-9]*|0(x[0-9a-fA-F]{1,16})?)"
+				"match": "[$]?(-?[1-9][0-9]*|0(x[0-9a-fA-F][1-9a-fA-F]{1,16})?)"
 			}]
 		},
 		"keywords": {
@@ -107,37 +115,37 @@
 		},
 		"SET": {
 			"patterns": [{
-				"name": "storage.type.att",
+				"name": "keyword.core.att",
 				"match": "\\bsetn?([ez]|s|[gl]e?|[ab]e?)\\b"
 			}]
 		},
 		"JMP": {
 			"patterns": [{
-				"name": "storage.type.att",
+				"name": "keyword.core.att",
 				"match": "\\bj(mp|n?[ez]|n?s|n?[gl]e?|n?[ab]e?)[blqw]?\\b"
 			}]
 		},
 		"CMOV": {
 			"patterns": [{
-				"name": "storage.type.att",
+				"name": "keyword.core.att",
 				"match": "\\bcmovn?([ez]|s|[gl]e?|[ab]e?)\\b"
 			}]
 		},
 		"PUSH": {
 			"patterns": [{
-				"name": "storage.type.att",
+				"name": "keyword.core.att",
 				"match": "\\bpushq?\\b"
 			}]
 		},
 		"POP": {
 			"patterns": [{
-				"name": "storage.type.att",
+				"name": "keyword.core.att",
 				"match": "\\bpopq?\\b"
 			}]
 		},
 		"CALL": {
 			"patterns": [{
-				"name": "storage.type.att",
+				"name": "keyword.core.att",
 				"match": "\\bcall[blwq]?\\b"
 			}]
 		},
@@ -155,7 +163,7 @@
 		"comments": {
 			"patterns": [{
 				"name": "comment.line.att",
-				"match": ";.*"
+				"match": ";.*$"
 			}]
 		}
 	},

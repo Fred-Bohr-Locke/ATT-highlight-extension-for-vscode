@@ -1,6 +1,17 @@
 # Change Log
 
-* current edition: 0.0.1
-* Version 0.0.1 released on 2020.11.14
-* the latest edition: 0.0.0
-* Initial version released on 2020.11.6
+## [0.0.2] (2020-11-18)
+* 学习了ChangeLog和ReadMe的写法
+* 添加了logo的图片，现在有黑色背景和透明背景的logo了。
+可以修改package.json文件的icon的文件名来切换logo图片
+* 更改了mov等指令的颜色名
+* 优化了函数名匹配
+
+## [0.0.1] (2020-11-14)
+* 增加了支持的汇编语法
+* 优化了一些正则表达式
+* 增加了指令地址和函数名匹配的功能
+* 产生了新的bug
+
+## [0.0.0] (2020-11-06)
+* 初始版本
