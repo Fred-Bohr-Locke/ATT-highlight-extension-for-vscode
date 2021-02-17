@@ -6,6 +6,7 @@
 		{"include": "#endbr64"},
 		{"include": "#MOV"},
 		{"include": "#registers"},
+		{"include": "#functions_call"},
 		{"include": "#int_calculation"},
 		{"include": "#int_calculation_logical"},
 		{"include": "#int_calculation_bit"},
@@ -20,6 +21,7 @@
 		{"include": "#NOP"},
 		{"include": "#strings"},
 		{"include": "#comments"},
+		{"include": "#directives"},
 		{"include": "#numbers"}
 	],
 	"repository": {
@@ -27,7 +29,7 @@
 			"end": ":$",
 			"patterns": [{
 				"name": "entity.name.function.att",
-				"match": "^[.]?[_a-zA-Z][_0-9a-zA-Z@. ]*"
+				"match": "^[_a-zA-Z][_0-9a-zA-Z@.]*"
 			}]
 		},
 		"function_disas": {
@@ -48,7 +50,7 @@
 		"endbr64": {
 			"patterns": [{
 				"name": "keyword.core.att",
-				"match": "endbr64"
+				"match": "\\bendbr64\\b"
 			}]
 		},
 		"MOV": {
@@ -60,7 +62,7 @@
 		"registers": {
 			"patterns": [{
 				"name": "variable.att",
-				"match": "%(([er]?([a-d]x|si|di|bp|sp))|(r(ip|[8-9][bdw]?|1[0-5][bdw]?))|(([a-d]|si|di|bp|sp)l)|fs)"
+				"match": "%(([er]?([a-d]x|si|di|bp|sp))|(r(ip|[8-9][bdw]?|1[0-5][bdw]?))|(([a-d]|si|di|bp|sp)l)|fs)\\b"
 			}]
 		},
 		"int_calculation": {
@@ -152,10 +154,16 @@
 				"match": ";.*$"
 			}]
 		},
+		"directives": {
+			"patterns": [{
+				"name": "support.type.att",
+				"match": "[.][a-z_]+\\b"
+			}]
+		},
 		"numbers": {
 			"patterns": [{
 				"name": "constant.numeric.integer.att",
-				"match": "[$]?(-?(0x)?[0-9a-fA-F]{1,16})"
+				"match": "(\\b|[$])-?(0x)?[0-9a-f]{1,16}\\b"
 			}]
 		}
 	},

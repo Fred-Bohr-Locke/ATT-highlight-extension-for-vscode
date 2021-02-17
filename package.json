@@ -1,34 +1,53 @@
 {
-    "publisher": "FredBohrLocke",
+	"publisher": "FredBohrLocke",
 	"icon": "logo_transparent.png",
-    "name": "att",
-    "displayName": "AT&T",
-    "description": "a highlight extension for AT&T assembly language",
-    "version": "0.1.0",
-    "engines": {
-        "vscode": "^1.50.0"
-    },
-    "categories": [
-        "Programming Languages", "Snippets"
-    ],
-    "keywords": [
-        "AT&T", "ATT", "att", "linux", "assembly language", "highlight"
-    ],
-    "contributes": {
-        "languages": [{
-            "id": "att",
-            "aliases": ["AT&T Assembly Language", "att"],
-            "extensions": [".s"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "att",
-            "scopeName": "source.s",
-            "path": "./syntaxes/att.tmLanguage.json"
-        }],
-        "snippets": [{
-            "language": "att",
-            "path": "./snippets/snippets.code-snippets"
-        }]
-    }
+	"name": "att",
+	"displayName": "AT&T",
+	"description": "A highlight extension for AT&T assembly language",
+	"repository": {
+		"url": "https://gitee.com/fred-bohr-locke/ATT.git",
+		"type": "git"
+	},
+	"version": "0.1.1",
+	"engines": {
+		"vscode": "^1.50.0"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"keywords": [
+		"AT&T",
+		"ATT",
+		"att",
+		"linux",
+		"assembly language",
+		"highlight"
+	],
+	"contributes": {
+		"languages": [
+			{
+				"id": "att",
+				"aliases": [
+					"AT&T Assembly Language",
+					"att"
+				],
+				"extensions": [
+					".s"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "att",
+				"scopeName": "source.s",
+				"path": "./syntaxes/att.tmLanguage.json"
+			}
+		]
+	},
+	"__metadata": {
+		"id": "5b6f7346-237b-4ada-a339-caa73c20dc51",
+		"publisherDisplayName": "Fred_Bohr_Locke",
+		"publisherId": "69816dd5-135f-46c2-9639-71d8b80c1a4f"
+	}
 }

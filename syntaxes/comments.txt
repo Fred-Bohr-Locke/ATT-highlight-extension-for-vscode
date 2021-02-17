@@ -39,57 +39,35 @@
 
 位运算原色：keyword.operator.bitwise
 
-和寄存器同样的问题出现了，$0xa，只匹配$0，暂时把十位和十六位数并起来了
-        {"include": "#immediate_10"},
-		{"include": "#immediate_16"},
-        "immediate_10": {
-			"patterns": [{
-				"name": "constant.numeric.integer.decimal.att",
-				"match": "\\$?-?[0-9]+"
-			}]
-		},
-		"immediate_16": {
-			"patterns": [{
-				"name": "constant.numeric.integer.hexadecimal.att",
-				"match": "\\$?0x([0-9a-fA-F]{1,16}),?"
-			}]
-		}
-
 SET原色：keyword.operator
 
 JMP原色：entity.name.label
 
 COMV原色：keyword.operator
 
-标点符号就是不变色，不过本来也就没有颜色，先不管了
-		{"include": "punctuations"}
-        "punctuations": {
-			"patterns": [{
-				"name": "punctuation.separator.att",
-				"match": ","
-			}]
-		}
-
-
-0.0.1注释
-category目录下要加,"Themes"
-contributes目录下：
-        "themes": [{
-            "label": "att",
-            "uiTheme": "vs-dark",
-            "path": "./themes/color-color-theme.json"
-        }],
-首先可以试试看在contributions添加scopeName：source.s （不行）
-其次可以直接添加activationEvents：“onLanguage：s/att？” （目前也不行）
-重新创建一个配套插件？？？（我觉得不一定能解决问题，但是还是值得试一下的）
-
-address的begin是四个空格，不会匹配
-
-不知道要怎么匹配十六进制命令
-完全不知道要怎么区分地址、指令和立即数
-先保留这个问题
-
 改好了function的匹配方式~
 Disassembly of section .plt.got:
 但是这一整句都会被匹配到，这可能不太好
-为了c编译后的文件的高亮，只能先保留这个匹配方案了
+
+新添加了伪指令匹配
+但是不知道要用什么颜色名
+
+		"functions_call": {
+			"name": "keyword.core.att",
+			"begin": "\\bcall\t",
+			"end": "\\b$",
+			"patterns": [
+				{
+					"name": "entity.name.function.att",
+					"match": "[_a-zA-Z][_0-9a-zA-Z@.]*"
+				},
+				{
+					"name": "punctuation.accessor.att",
+					"begin": "[*]",
+					"include": "#registers"
+				}
+			]
+		},
+解决一个问题的同时会带来一万个问题
+不解决了
+call后函数名匹配的问题
